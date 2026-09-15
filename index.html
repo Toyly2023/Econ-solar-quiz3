@@ -68,10 +68,24 @@
       animation: pulse-sun 3s ease-in-out infinite;
     }
 
+    @keyframes energy-flow {
+      0% { stroke-dashoffset: 60; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .flow-line {
+      stroke-dasharray: 8, 4;
+      animation: energy-flow 1.2s linear infinite;
+    }
+
     .glass-card {
       background: rgba(15, 23, 42, 0.88);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .glass-card-light {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .progress-bar-transition {
@@ -97,6 +111,9 @@
       background: rgba(245, 158, 11, 0.5);
       border-radius: 9999px;
     }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(245, 158, 11, 0.8);
+    }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between overflow-x-hidden relative selection:bg-amber-500 selection:text-slate-900">
@@ -111,7 +128,7 @@
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-300 flex items-center justify-center shadow-lg shadow-amber-500/20">
         <svg class="w-6 h-6 text-slate-950" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.5-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
+          <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
         </svg>
       </div>
       <div>
@@ -164,7 +181,7 @@
         ⚡ รวมพลังแสงอาทิตย์ พิชิตคำถามอนุรักษ์พลังงาน ชิงรางวัล!
       </p>
       <p class="text-slate-300 max-w-lg text-xs sm:text-sm mb-6 leading-relaxed">
-        ตอบคำถามพลังงานจากคลัง <span id="bank-total-display">3,000+</span> ข้อ ตอบถูกเพิ่ม <span class="text-emerald-400 font-bold">+4 วินาที</span> (ตอบผิดหัก -10 วินาที) ยิ่งตอบเร็วยิ่งได้ kWh เยอะ สะสมพลังงานพิชิตเป้าหมาย <span class="text-amber-400 font-bold font-mono">100,000 kWh</span>
+        ตอบคำถามพลังงานจากคลัง 3,000+ ข้อ ตอบถูกเพิ่ม <span class="text-emerald-400 font-bold">+4 วินาที</span> (ตอบผิดหัก -10 วินาที) พลังงานที่ได้นับถอยหลังตามความเร็วในการตอบ สะสมพิชิตเป้าหมาย <span class="text-amber-400 font-bold font-mono">100,000 kWh</span>
       </p>
 
       <div class="w-full max-w-md bg-slate-900/90 rounded-2xl p-5 border border-slate-800 shadow-2xl mb-8 relative overflow-hidden">
@@ -193,7 +210,7 @@
           </div>
         </div>
         <p class="text-[11px] text-slate-400 text-center mt-3">
-          💡 กติกา kWh: ตอบไวได้พลังงานมากตามวินาทีที่เหลือในข้อนั้น
+          💡 กติกา: ยิ่งตอบเร็ว ยิ่งได้ kWh เยอะ (100 kWh = 1 <span class="text-amber-300 font-medium">บ้านพลังงาน</span>)
         </p>
       </div>
 
@@ -207,7 +224,7 @@
                 <span class="font-bold text-emerald-400 text-sm sm:text-base">🌱 ง่าย (Easy)</span>
                 <span class="text-[11px] px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded font-mono font-bold">60s / ×1.0</span>
               </div>
-              <p class="text-xs text-slate-400">เวลาเริ่มต้น 60 วินาที • โบนัสความเร็วมาตรฐาน</p>
+              <p class="text-xs text-slate-400">ความเร็วปกติ (1,000ms)</p>
             </div>
             <div class="mt-2.5 sm:mt-4 pt-2 border-t border-emerald-500/20 text-xs font-mono text-emerald-300 font-medium">
               +4s เมื่อตอบถูก | -10s เมื่อตอบผิด
@@ -223,7 +240,7 @@
                 <span class="font-bold text-amber-400 text-sm sm:text-base">⚡ ปานกลาง (Medium)</span>
                 <span class="text-[11px] px-2 py-0.5 bg-amber-500/20 text-amber-300 rounded font-mono font-bold">45s / ×1.25</span>
               </div>
-              <p class="text-xs text-slate-400">เวลาเริ่มต้น 45 วินาที • ตัวคูณพลังงาน ×1.25</p>
+              <p class="text-xs text-slate-400">เร็วกว่าระดับง่าย 15% (850ms)</p>
             </div>
             <div class="mt-2.5 sm:mt-4 pt-2 border-t border-amber-500/20 text-xs font-mono text-amber-300 font-medium">
               +4s เมื่อตอบถูก | -10s เมื่อตอบผิด
@@ -236,7 +253,7 @@
                 <span class="font-bold text-rose-400 text-sm sm:text-base">🔥 ท้าทาย (Hard)</span>
                 <span class="text-[11px] px-2 py-0.5 bg-rose-500/20 text-rose-300 rounded font-mono font-bold">30s / ×1.5</span>
               </div>
-              <p class="text-xs text-slate-400">เวลาเริ่มต้น 30 วินาที • ตัวคูณพลังงานสูง ×1.5</p>
+              <p class="text-xs text-slate-400">ความเร็วสูง (700ms)</p>
             </div>
             <div class="mt-2.5 sm:mt-4 pt-2 border-t border-rose-500/20 text-xs font-mono text-rose-300 font-medium">
               +4s เมื่อตอบถูก | -10s เมื่อตอบผิด
@@ -392,9 +409,8 @@
               อัปเดต: พ.ศ. 2568-2569
             </span>
           </div>
-          <div class="text-[11px] sm:text-xs text-slate-400 font-mono flex items-center gap-2">
-            <span>ข้อที่ <span id="q-index-number" class="text-white font-bold">1</span></span>
-            <span class="text-amber-400 font-bold bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">⏳ <span id="q-countdown">10</span>s</span>
+          <div class="text-[11px] sm:text-xs text-slate-400 font-mono">
+            ข้อที่ <span id="q-index-number" class="text-white font-bold">1</span>
           </div>
         </div>
 
@@ -467,7 +483,7 @@
 
         <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80 text-xs text-slate-400 flex items-center gap-2">
           <span>ℹ️</span>
-          <span>หน่วยจำลอง 100 kWh = 1 <strong>บ้านพลังงานในเกม</strong> | คำนวณ kWh จากความเร็วในการตอบคำถาม</span>
+          <span>หน่วยจำลอง 100 kWh = 1 <strong>บ้านพลังงานในเกม</strong> (ไม่ใช่ค่าเฉลี่ยจริงต่อเดือนของบ้าน เพื่อความสมดุลของการเล่น)</span>
         </div>
       </div>
 
@@ -507,7 +523,7 @@
               placeholder="เช่น SCG, PTT, CPF, TOA, FACTORY-1" 
               class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm font-mono uppercase"
             >
-            <span class="text-[11px] text-slate-500 mt-1 block">🏆 กติกา: ยึดคะแนนสูงสุด (หากเท่ากัน เทียบเวลาเล่นน้อยกว่า)</span>
+            <span class="text-[11px] text-slate-500 mt-1 block">🏆 กติกา: ยึดคะแนนสูงสุดของแต่ละผู้เล่นและโรงงาน (กรณีคะแนนเท่ากัน เรียงตามเวลาที่ใช้เล่นน้อยกว่า)</span>
           </div>
 
           <button 
@@ -543,7 +559,7 @@
             <span class="text-2xl">🏆</span>
             <div>
               <h3 class="text-lg font-bold text-white">ตารางผู้นำพลังงานสะอาด (Leaderboard)</h3>
-              <p class="text-xs text-slate-400">จัดอันดับ 20 ยอดเยี่ยม (คะแนนสูงสุด | หากเท่ากันเทียบเวลาเล่นน้อยกว่า)</p>
+              <p class="text-xs text-slate-400">จัดอันดับ 20 ยอดเยี่ยมตามคะแนนสูงสุด (ตัดสินด้วยความเร็วเล่น)</p>
             </div>
           </div>
           <button id="refresh-leaderboard-btn" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs flex items-center gap-1 transition-all" title="รีเฟรชข้อมูล">
@@ -561,7 +577,6 @@
                 <th class="py-2.5 px-3 rounded-l-lg">อันดับ</th>
                 <th class="py-2.5 px-3">ผู้เล่น / โรงงาน</th>
                 <th class="py-2.5 px-3">ระดับ</th>
-                <th class="py-2.5 px-3 text-right">เวลาเล่น</th>
                 <th class="py-2.5 px-3 text-right">พลังงาน</th>
                 <th class="py-2.5 px-3 text-right rounded-r-lg">คะแนน</th>
               </tr>
@@ -573,7 +588,7 @@
 
         <div id="leaderboard-source-note" class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-500 flex items-center justify-between">
           <span id="leaderboard-mode-status">เชื่อมต่อ: ระบบจำลองในเบราว์เซอร์ (Mock Storage)</span>
-          <span>แสดง 20 อันดับสูงสุด</span>
+          <span>นับเฉพาะคะแนนสูงสุดต่อชื่อผู้เล่น</span>
         </div>
 
         <div class="mt-6 flex justify-center">
@@ -586,14 +601,12 @@
 
   </main>
 
-  <div id="notification-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-    <div class="glass-card max-w-sm w-full rounded-2xl p-6 border border-slate-700 shadow-2xl text-center">
-      <div id="notification-icon" class="text-3xl mb-3">⚡</div>
-      <h3 id="notification-title" class="text-base font-bold text-white mb-2">แจ้งเตือนระบบ</h3>
-      <p id="notification-message" class="text-xs text-slate-300 mb-5 leading-relaxed">ข้อความแจ้งเตือน...</p>
-      <button id="notification-ok-btn" class="w-full py-2.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20">
-        ตกลง (OK)
-      </button>
+  <div id="custom-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="glass-card max-w-sm w-full rounded-2xl p-5 border border-slate-700 shadow-2xl text-center">
+      <div id="custom-modal-icon" class="text-3xl mb-2">💡</div>
+      <h3 id="custom-modal-title" class="text-base font-bold text-white mb-1">แจ้งเตือน</h3>
+      <p id="custom-modal-message" class="text-xs text-slate-300 mb-4">ข้อความแจ้งเตือน</p>
+      <button id="custom-modal-ok-btn" class="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition-all">ตกลง</button>
     </div>
   </div>
 
@@ -683,19 +696,6 @@
           <p class="text-[11px] text-slate-500 mt-1">หากเว้นว่างไว้ ระบบจะใช้ Mock Local Storage เพื่อให้เล่นเกมได้สมบูรณ์</p>
         </div>
 
-        <div class="p-3 bg-slate-900/90 rounded-xl border border-amber-500/30 text-[11px] text-slate-300 space-y-1.5">
-          <div class="font-bold text-amber-400 flex items-center gap-1.5">
-            <span>📋</span>
-            <span>วิธีติดตั้ง Google Sheets เชื่อมต่อเกมใน 4 ขั้นตอน:</span>
-          </div>
-          <ol class="list-decimal list-inside space-y-1 text-slate-300 ml-1">
-            <li>สร้าง Google Sheet ใหม่ แล้วไปที่เมนู <strong>ส่วนขยาย (Extensions) → Apps Script</strong></li>
-            <li>ลบโค้ดเดิมทั้งหมด วางโค้ดด้านล่างนี้ลงไป แล้วกดเลือกฟังก์ชัน <strong>setupSheet</strong> กด <strong>Run (เรียกใช้)</strong> 1 ครั้งเพื่อสร้างหัวตารางอัตโนมัติ</li>
-            <li>กดปุ่มสีน้ำเงิน <strong>การทำให้ใช้งานได้ (Deploy) → การทำให้ใช้งานได้รายการใหม่ (New deployment)</strong></li>
-            <li>เลือกประเภท <strong>เว็บแอป (Web app)</strong>, ตั้งค่าใครมีสิทธิ์เข้าถึงเป็น <strong>"ทุกคน" (Anyone)</strong>, กด Deploy แล้วคัดลอก URL ที่ลงท้ายด้วย <code>/exec</code> มาวางในช่องด้านบน</li>
-          </ol>
-        </div>
-
         <div class="flex justify-end gap-2 pt-2">
           <button id="save-config-btn" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs">
             บันทึกการตั้งค่า
@@ -706,36 +706,16 @@
           <div class="flex items-center justify-between mb-2">
             <span class="font-semibold text-slate-300 flex items-center gap-1.5">
               <span>📚</span>
-              <span>คลังคำถามขยายใหม่ 3,000+ ข้อ (Question Bank Manager)</span>
+              <span>คลังคำถามหลายไฟล์ (Multi-File Question Bank Manager)</span>
             </span>
-            <span id="q-source-status" class="text-[11px] font-bold text-amber-400">Expanded 3,000+ Question Bank</span>
+            <span id="q-source-status" class="text-[11px] font-bold text-amber-400">กำลังโหลดคลัง...</span>
           </div>
           <p class="text-slate-400 text-[11px] mb-3">
-            ระบบรองรับชุดคำถามกว่า 3,000+ ข้อจากไฟล์แบตช์ต่างๆ อัตโนมัติ
+            ระบบโหลดคำถามจากไฟล์ JSON ทั้งหมดในเครื่องโดยอัตโนมัติ
           </p>
 
-          <div class="p-3 bg-slate-900/90 rounded-xl border border-slate-700/80 mb-3 space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="font-semibold text-slate-200">1. นำเข้าจากไฟล์ในเครื่อง:</span>
-              <input type="file" id="upload-question-file-input" accept=".json" class="hidden">
-              <button 
-                type="button" 
-                id="upload-question-file-btn" 
-                class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-xs transition-colors flex items-center gap-1.5 shadow-md shadow-emerald-600/20 active:scale-95"
-              >
-                <span>📂 เลือกไฟล์คลังคำถาม .json</span>
-              </button>
-            </div>
-            <div id="file-upload-status" class="text-[11px] text-slate-400 font-mono">
-              คลิกปุ่มเพื่อเลือกไฟล์ JSON ระบบจะอัปเดตคำถามทั้งระบบทันที
-            </div>
-          </div>
-
           <div class="mt-2.5 flex items-center justify-between text-[11px] text-slate-400">
-            <span id="active-question-count-text">จำนวนคำถามปัจจุบัน: กำลังตรวจสอบ...</span>
-            <button type="button" id="reset-questions-default-btn" class="text-rose-400 hover:underline">
-              รีเซ็ตกลับเป็นคำถามเริ่มต้น
-            </button>
+            <span id="active-question-count-text">จำนวนคำถามปัจจุบัน: กำลังโหลด...</span>
           </div>
         </div>
       </div>
@@ -752,23 +732,14 @@
   </footer>
 
   <script>
-    const QUESTION_FILES = [
-      "energy_conservation_general_1000.json",
-      "energy_questions_batch_01.json",
-      "energy_saving_quiz_additional_950.json"
-    ];
-
-    // ฟังก์ชันแจ้งเตือนด้วย Custom Dialog (แทน alert)
-    function showNotification(message, title = 'แจ้งเตือน', icon = '⚡') {
-      const modal = document.getElementById('notification-modal');
-      const titleEl = document.getElementById('notification-title');
-      const msgEl = document.getElementById('notification-message');
-      const iconEl = document.getElementById('notification-icon');
-      
+    function showCustomModal(title, message, icon = "💡") {
+      const modal = document.getElementById('custom-modal');
+      const titleEl = document.getElementById('custom-modal-title');
+      const msgEl = document.getElementById('custom-modal-message');
+      const iconEl = document.getElementById('custom-modal-icon');
       if (titleEl) titleEl.textContent = title;
       if (msgEl) msgEl.textContent = message;
       if (iconEl) iconEl.textContent = icon;
-      
       if (modal) {
         modal.classList.remove('hidden');
         modal.classList.add('flex');
@@ -776,10 +747,10 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      const okBtn = document.getElementById('notification-ok-btn');
+      const okBtn = document.getElementById('custom-modal-ok-btn');
       if (okBtn) {
         okBtn.addEventListener('click', () => {
-          const modal = document.getElementById('notification-modal');
+          const modal = document.getElementById('custom-modal');
           if (modal) {
             modal.classList.add('hidden');
             modal.classList.remove('flex');
@@ -788,126 +759,75 @@
       }
     });
 
-    // ฟังก์ชันโหลดคำถามทั้งหมดจากไฟล์ Batch
+    const QUESTION_FILES = [
+      "energy_conservation_general_1000.json",
+      "energy_questions_batch_01.json",
+      "energy_saving_questions_950_no_answers.json",
+      "energy_saving_quiz_additional_950.json",
+      "คำถามพลังงานทดแทน_100ข้อ.json",
+      "คำถามพลังงานทดแทน_100ข้อ_2.json",
+      "คำถามพลังงานทดแทน_100ข้อ_3.json",
+      "renewable_energy_and_management_questions_100_2.json",
+      "renewable_energy_questions_100_example_format.json",
+      "general_knowledge_questions_100.json",
+      "general_knowledge_questions_100_2.json",
+      "renewable_energy_questions_100_example_format_2.json"
+    ];
+
     async function loadAllQuestions() {
       const questionBank = [];
-
       for (const filename of QUESTION_FILES) {
         try {
           const response = await fetch("./" + filename);
-
           if (!response.ok) {
-            throw new Error(`ไม่พบไฟล์ ${filename}`);
+            console.warn(`ไม่พบไฟล์ ${filename} ข้ามการโหลดไฟล์นี้`);
+            continue;
           }
-
           const data = await response.json();
-
           const questions = Array.isArray(data)
             ? data
             : Array.isArray(data.questions)
               ? data.questions
-              : Array.isArray(data.answeredQuestions)
-                ? data.answeredQuestions
-                : [];
-
+              : [];
           questionBank.push(...questions);
           console.log(`โหลด ${filename}: ${questions.length} ข้อ`);
         } catch (error) {
-          console.warn(`ข้ามไฟล์ ${filename} หรือใช้งาน Fallback:`, error.message);
+          console.warn(`ข้อผิดพลาดในการโหลดไฟล์ ${filename}:`, error);
         }
       }
-
       console.log(`รวมคำถามทั้งหมด: ${questionBank.length} ข้อ`);
       return questionBank;
     }
-
-    // ข้อมูลคำถามสำรองกรณีดึงไฟล์ภายนอกไม่สำเร็จ
-    const EMBEDDED_FALLBACK_DATA = {
-      "questions": [
-        {
-          "id": "ENQ0001",
-          "category": "กฎหมายและการจัดการพลังงาน",
-          "question": "คำว่า “องค์กร” ในประกาศหมายความรวมถึงอะไร",
-          "choices": [
-            "องค์กรระหว่างประเทศเท่านั้น",
-            "บริษัทจำหน่ายไฟฟ้าเท่านั้น",
-            "กระทรวงพลังงานเท่านั้น",
-            "โรงงานควบคุมหรืออาคารควบคุมแล้วแต่กรณี"
-          ],
-          "answerIndex": 3,
-          "answer": "โรงงานควบคุมหรืออาคารควบคุมแล้วแต่กรณี",
-          "explanation": "ประกาศนิยามองค์กรให้ครอบคลุมโรงงานหรืออาคารควบคุม"
-        },
-        {
-          "id": "ENQ0311",
-          "category": "ค่าใช้จ่ายพลังงาน",
-          "question": "สถานการณ์ G0311: ใช้ไฟฟ้า 100 kWh ที่อัตรา 3.00 บาท/kWh ค่าไฟฟ้าส่วนพลังงานเท่าใด",
-          "choices": [
-            "240.00 บาท",
-            "360.00 บาท",
-            "450.00 บาท",
-            "300.00 บาท"
-          ],
-          "answerIndex": 3,
-          "answer": "300.00 บาท",
-          "explanation": "ค่าใช้จ่าย = 100 × 3.00 = 300.00 บาท"
-        },
-        {
-          "id": "ENQ0931",
-          "category": "พลังงานแสงอาทิตย์",
-          "question": "ระบบ Solar PV 2 kWp มีชั่วโมงแดดเทียบเท่า 3.0 ชั่วโมง/วัน และ Performance Ratio 0.70 ผลิตพลังงานเฉลี่ยเท่าใด",
-          "choices": [
-            "6.30 kWh/วัน",
-            "5.04 kWh/วัน",
-            "3.36 kWh/วัน",
-            "4.20 kWh/วัน"
-          ],
-          "answerIndex": 3,
-          "answer": "4.20 kWh/วัน",
-          "explanation": "พลังงาน = 2 × 3.0 × 0.70 = 4.20 kWh/วัน"
-        }
-      ]
-    };
 
     class QuestionManager {
       constructor() {
         this.questions = [];
         this.shuffledQueue = [];
         this.currentIndex = 0;
-        this.externalSourceUrl = '';
+        this.usedQuestionKeys = new Set();
+        this.recentHistoryIds = [];
+        this.recentHistoryConcepts = [];
+        this.maxRecentMemory = 5;
+        this.externalSourceUrl = 'Combined Multi-File Dataset';
       }
 
       async init() {
-        try {
-          const cached = localStorage.getItem('solar_custom_questions_data_multibatch');
-          if (cached) {
-            const parsed = JSON.parse(cached);
-            if (Array.isArray(parsed) && parsed.length > 0) {
-              this.questions = parsed;
-              this.externalSourceUrl = localStorage.getItem('solar_custom_questions_source_multibatch') || 'Local Storage';
-              this.prepareQueue();
-              return this.questions.length;
+        const rawList = await loadAllQuestions();
+        if (rawList.length > 0) {
+          this.loadFromJsonArray(rawList, 'Combined Multi-File Dataset');
+        } else {
+          this.loadFromJsonArray([
+            {
+              id: "EN0001",
+              category: "พื้นฐานพลังงาน",
+              question: "หน่วยใดใช้วัดพลังงานไฟฟ้าที่ผู้ใช้ไฟชำระเงิน",
+              choices: ["กิโลวัตต์-ชั่วโมง (kWh)", "โวลต์ (V)", "แอมแปร์ (A)", "กิโลวัตต์ (kW)"],
+              answerIndex: 0,
+              answer: "กิโลวัตต์-ชั่วโมง (kWh)",
+              explanation: "kWh เป็นหน่วยพลังงาน ส่วน kW เป็นหน่วยกำลัง"
             }
-          }
-        } catch (e) {
-          console.warn('Failed to load from localStorage:', e);
+          ], 'Fallback Default');
         }
-
-        let combined = [];
-        try {
-          const fetchedBatch = await loadAllQuestions();
-          if (fetchedBatch && fetchedBatch.length > 0) {
-            combined = combined.concat(fetchedBatch);
-          }
-        } catch (err) {
-          console.warn('Batch fetch warning:', err);
-        }
-
-        if (combined.length === 0 && typeof EMBEDDED_FALLBACK_DATA !== 'undefined') {
-          combined = combined.concat(EMBEDDED_FALLBACK_DATA.questions);
-        }
-
-        return this.loadFromJsonArray(combined, combined.length > 10 ? 'Multi-File Batch (Loaded)' : 'Embedded Fallback Bank');
       }
 
       normalizeQuestion(rawQ, index = 0) {
@@ -915,10 +835,14 @@
         let correctText = '';
 
         const choices = Array.isArray(rawQ.choices)
-          ? rawQ.choices.map(c => String(c).trim())
-          : [];
+          ? rawQ.choices.map(choice => String(choice).trim())
+          : Array.isArray(rawQ.options)
+            ? rawQ.options.map(opt => String(opt).trim())
+            : [];
 
         const rawAnswerIndex = rawQ.answerIndex;
+        const answerLetterMap = { A: 0, B: 1, C: 2, D: 3, 'ก': 0, 'ข': 1, 'ค': 2, 'ง': 3 };
+
         if (typeof rawQ.correctAnswer === 'string') {
           correctText = rawQ.correctAnswer.trim();
         } else if (typeof rawQ.answer === 'string') {
@@ -938,67 +862,66 @@
           ansIdx = rawAnswerIndex;
           correctText = choices[ansIdx];
           answerResolved = true;
+        } else if (!answerResolved && typeof rawAnswerIndex === 'string' && choices.length > 0) {
+          const normalizedIndex = rawAnswerIndex.trim().toUpperCase();
+          if (Object.prototype.hasOwnProperty.call(answerLetterMap, normalizedIndex)) {
+            ansIdx = answerLetterMap[normalizedIndex];
+            correctText = choices[ansIdx] || '';
+            answerResolved = true;
+          } else if (/^\d+$/.test(normalizedIndex)) {
+            const numericIndex = Number(normalizedIndex);
+            ansIdx = numericIndex >= 1 && numericIndex <= choices.length ? numericIndex - 1 : numericIndex;
+            correctText = choices[ansIdx] || '';
+            answerResolved = ansIdx >= 0 && ansIdx < choices.length;
+          }
         }
 
-        if (!answerResolved && choices.length > 0) {
-          ansIdx = 0;
-          correctText = choices[0];
-        }
-
-        let cleanQText = (rawQ.question || rawQ.text || '')
+        let cleanQText = (rawQ.question || '')
           .replace(/^(คำถามที่\s*\d+[:\s]*|เลือกคำตอบที่ถูกต้อง[:\s]*|จากหลักการด้านพลังงาน[:\s]*|สถานการณ์\s*\w+[:\s]*)/i, '')
+          .replace(/\s*(?:เฉลย|คำตอบที่ถูกต้อง|ตอบ)\s*[:：-]\s*[\s\S]*$/i, '')
           .trim();
 
         return {
           id: rawQ.id ? String(rawQ.id) : ('Q-' + (index + 1)),
           category: rawQ.category || 'การประหยัดพลังงาน',
           question: cleanQText,
+          conceptKey: cleanQText.substring(0, 40),
           choices: choices.length >= 2 ? choices : ['ใช่ (True)', 'ไม่ใช่ (False)'],
           answerIndex: ansIdx,
           correctAnswerText: correctText || choices[ansIdx] || '',
-          explanation: rawQ.explanation || 'คำตอบถูกต้องตามหลักการอนุรักษ์พลังงานและพลังงานทดแทน',
-          source: rawQ.reference ? (rawQ.reference.title || rawQ.reference.document) : (rawQ.source || 'กระทรวงพลังงาน / พพ.'),
+          explanation: rawQ.explanation || 'คำตอบถูกต้องตามหลักการอนุรักษ์พลังงานที่มีประสิทธิภาพ',
+          source: rawQ.source || 'กระทรวงพลังงาน / พพ.',
           updatedAt: rawQ.updatedAt || 'พ.ศ. 2569'
         };
       }
 
-      loadFromJsonArray(dataArray, sourceName = 'Multi-File Batch') {
+      loadFromJsonArray(dataArray, sourceName = 'File Upload') {
         let rawList = [];
         if (Array.isArray(dataArray)) {
           rawList = dataArray;
         } else if (dataArray && Array.isArray(dataArray.questions)) {
           rawList = dataArray.questions;
-        } else {
-          throw new Error('โครงสร้างข้อมูลไม่ถูกต้อง');
         }
 
         const normalized = rawList
-          .filter(q => q && (q.question || q.text) && Array.isArray(q.choices))
+          .filter(q => q && (q.question || q.text) && (Array.isArray(q.choices) || Array.isArray(q.options)))
           .map((q, idx) => this.normalizeQuestion(q, idx));
 
-        const seenKeys = new Set();
+        const seenQuestionKeys = new Set();
         const valid = normalized.filter(q => {
-          const key = q.question.toLowerCase();
-          if (!key || seenKeys.has(key)) return false;
-          seenKeys.add(key);
+          const key = this.getQuestionKey(q);
+          if (!key || seenQuestionKeys.has(key)) return false;
+          seenQuestionKeys.add(key);
           return true;
         });
 
-        if (valid.length === 0) {
-          throw new Error('ไม่พบข้อมูลคำถามที่ถูกต้อง');
+        if (valid.length > 0) {
+          this.questions = valid;
+          this.externalSourceUrl = sourceName;
+          this.recentHistoryIds = [];
+          this.recentHistoryConcepts = [];
+          this.prepareQueue();
         }
-
-        this.questions = valid;
-        this.externalSourceUrl = sourceName;
-        this.prepareQueue();
-
-        try {
-          localStorage.setItem('solar_custom_questions_data_multibatch', JSON.stringify(valid));
-          localStorage.setItem('solar_custom_questions_source_multibatch', sourceName);
-        } catch (e) {
-          console.warn('Storage save failed:', e);
-        }
-
         return valid.length;
       }
 
@@ -1011,34 +934,62 @@
         return arr;
       }
 
+      getQuestionKey(question) {
+        return String(question?.question || '')
+          .normalize('NFKC')
+          .trim()
+          .replace(/\s+/g, ' ')
+          .toLocaleLowerCase('th-TH');
+      }
+
       startNewGame() {
+        this.usedQuestionKeys.clear();
+        this.recentHistoryIds = [];
+        this.recentHistoryConcepts = [];
         this.prepareQueue();
       }
 
       prepareQueue() {
-        this.shuffledQueue = this.fisherYatesShuffle(this.questions);
+        let pool = [...this.questions];
+        this.shuffledQueue = this.fisherYatesShuffle(pool);
         this.currentIndex = 0;
       }
 
       getNextQuestion() {
-        if (!this.shuffledQueue || this.shuffledQueue.length === 0 || this.currentIndex >= this.shuffledQueue.length) {
-          this.prepareQueue(); 
+        if (!this.shuffledQueue || this.shuffledQueue.length === 0) this.prepareQueue();
+
+        let selected = null;
+        while (this.currentIndex < this.shuffledQueue.length) {
+          const candidate = this.shuffledQueue[this.currentIndex++];
+          const questionKey = this.getQuestionKey(candidate);
+
+          if (questionKey && !this.usedQuestionKeys.has(questionKey)) {
+            selected = candidate;
+            this.usedQuestionKeys.add(questionKey);
+            break;
+          }
         }
-        return this.shuffledQueue[this.currentIndex++];
+
+        if (!selected) {
+          this.prepareQueue();
+          if (this.shuffledQueue.length > 0) {
+            selected = this.shuffledQueue[this.currentIndex++];
+          }
+        }
+
+        if (!selected) return null;
+
+        this.recentHistoryIds.push(selected.id);
+        this.recentHistoryConcepts.push(selected.conceptKey);
+        if (this.recentHistoryIds.length > this.maxRecentMemory) {
+          this.recentHistoryIds.shift();
+          this.recentHistoryConcepts.shift();
+        }
+
+        return selected;
       }
 
       getCount() {
-        return this.questions.length;
-      }
-
-      resetToDefault() {
-        try {
-          localStorage.removeItem('solar_custom_questions_data_multibatch');
-          localStorage.removeItem('solar_custom_questions_source_multibatch');
-        } catch (e) {}
-
-        let combined = EMBEDDED_FALLBACK_DATA.questions;
-        this.loadFromJsonArray(combined, 'Embedded Fallback Bank');
         return this.questions.length;
       }
     }
@@ -1187,9 +1138,9 @@
       TARGET_KWH: 100000,
       KWH_PER_HOUSE: 100, 
       DIFFICULTIES: {
-        easy: { initialTime: 60, tickInterval: 1000, comboRate: 1.0, label: 'ง่าย (Easy)', baseKwh: 100 },
-        medium: { initialTime: 45, tickInterval: 850, comboRate: 1.25, label: 'ปานกลาง (Medium)', baseKwh: 125 },
-        hard: { initialTime: 30, tickInterval: 700, comboRate: 1.5, label: 'ท้าทาย (Hard)', baseKwh: 150 }
+        easy: { initialTime: 60, tickInterval: 1000, comboRate: 1.0, label: 'ง่าย (Easy)' },
+        medium: { initialTime: 45, tickInterval: 850, comboRate: 1.25, label: 'ปานกลาง (Medium)' },
+        hard: { initialTime: 30, tickInterval: 700, comboRate: 1.5, label: 'ท้าทาย (Hard)' }
       }
     };
 
@@ -1207,11 +1158,9 @@
       currentQuestionIndex: 0,
       isAnsweringLocked: false,
       gameStartTime: 0,
-      playDuration: 0,
+      questionStartTime: 0,
       appsScriptUrl: '',
-      adminPassword: 'solar@2569',
-      questionTimer: 10,
-      questionTimerInterval: null
+      adminPassword: 'solar@2569'
     };
 
     const views = {
@@ -1225,13 +1174,14 @@
       timer: document.getElementById('hud-timer'),
       kwh: document.getElementById('hud-kwh'),
       combo: document.getElementById('hud-combo'),
+      streakCount: document.getElementById('combo-streak-count'),
+      comboIcon: document.getElementById('combo-badge-icon'),
       houses: document.getElementById('hud-houses'),
       percentText: document.getElementById('hud-percent-text'),
       progressBar: document.getElementById('hud-progress-bar'),
       timeBonusText: document.getElementById('floating-time-bonus'),
       cityTitle: document.getElementById('city-status-title'),
-      cityDesc: document.getElementById('city-status-desc'),
-      qCountdown: document.getElementById('q-countdown')
+      cityDesc: document.getElementById('city-status-desc')
     };
 
     const questionCard = {
@@ -1294,19 +1244,8 @@
       return Number((baseRate + streakBonus).toFixed(2));
     }
 
-    // ฟังก์ชัน initializeGame หลักตามตัวอย่างที่ระบุ
-    async function initializeGame() {
+    function startGame() {
       sound.init();
-
-      const allQuestions = await loadAllQuestions();
-
-      if (!allQuestions || allQuestions.length === 0) {
-        showNotification("ไม่สามารถโหลดคลังคำถามได้ กรุณาตรวจสอบไฟล์หรือการเชื่อมต่อ", "เกิดข้อผิดพลาด", "✕");
-        return;
-      }
-
-      questionManager.loadFromJsonArray(allQuestions, 'Multi-File Batch (Loaded)');
-      questionManager.startNewGame();
 
       const diffConfig = GAME_CONFIG.DIFFICULTIES[gameState.selectedDifficulty];
 
@@ -1320,7 +1259,6 @@
       gameState.totalAnswered = 0;
       gameState.isAnsweringLocked = false;
       gameState.gameStartTime = Date.now();
-      gameState.playDuration = 0;
 
       const nameField = document.getElementById('player-name');
       const factoryField = document.getElementById('factory-code');
@@ -1328,6 +1266,8 @@
       if (nameField) nameField.value = '';
       if (factoryField) factoryField.value = '';
       if (submitFeedback) submitFeedback.classList.add('hidden');
+
+      questionManager.startNewGame();
 
       updateHud();
       switchView('game');
@@ -1337,16 +1277,6 @@
 
       renderCurrentQuestion();
     }
-
-    // ผูก DOMContentLoaded ตามที่กำหนด
-    document.addEventListener("DOMContentLoaded", async () => {
-      await questionManager.init();
-      const totalDisplay = document.getElementById('bank-total-display');
-      const count = questionManager.getCount();
-      if (totalDisplay) {
-        totalDisplay.textContent = `${count.toLocaleString()}+`;
-      }
-    });
 
     function gameTimerTick() {
       gameState.timeRemaining--;
@@ -1362,7 +1292,6 @@
 
       if (gameState.timeRemaining <= 0) {
         clearInterval(gameState.timerInterval);
-        if (gameState.questionTimerInterval) clearInterval(gameState.questionTimerInterval);
         endGame(false); 
       }
     }
@@ -1385,7 +1314,6 @@
 
       if ((Number(gameState.kwh) || 0) >= GAME_CONFIG.TARGET_KWH) {
         clearInterval(gameState.timerInterval);
-        if (gameState.questionTimerInterval) clearInterval(gameState.questionTimerInterval);
         setTimeout(() => {
           endGame(true); 
         }, 600);
@@ -1404,7 +1332,7 @@
 
       if (percentage < 25) {
         hud.cityTitle.textContent = 'ระดับแสงแดด: เช้าตรู่กำลังสะสมพลังงาน';
-        hud.cityDesc.textContent = 'ตอบคำถามเพื่อป้อนไฟฟ้าสะอาดเข้าสู่ Smart Grid ชุมชน';
+        hud.cityDesc.textContent = 'ตอบคำถามเพื่อป้อนไฟฟ้าโซลาร์เข้าสู่ Smart Grid ชุมชน';
         if (stars) stars.style.opacity = '0.3';
         if (skyline) skyline.setAttribute('fill', '#0f172a');
         if (solarGrid) solarGrid.setAttribute('fill', '#1e293b');
@@ -1428,8 +1356,6 @@
     }
 
     function renderCurrentQuestion() {
-      if (gameState.timeRemaining <= 0) return;
-
       gameState.isAnsweringLocked = false;
       questionCard.explanationBox.classList.add('hidden');
 
@@ -1437,21 +1363,11 @@
 
       if (!q) {
         clearInterval(gameState.timerInterval);
-        if (gameState.questionTimerInterval) clearInterval(gameState.questionTimerInterval);
         endGame(false);
         return;
       }
 
-      gameState.questionTimer = 10;
-      if (hud.qCountdown) hud.qCountdown.textContent = gameState.questionTimer;
-      if (gameState.questionTimerInterval) clearInterval(gameState.questionTimerInterval);
-      
-      gameState.questionTimerInterval = setInterval(() => {
-        if (gameState.questionTimer > 0) {
-          gameState.questionTimer--;
-          if (hud.qCountdown) hud.qCountdown.textContent = gameState.questionTimer;
-        }
-      }, 1000);
+      gameState.questionStartTime = Date.now();
 
       questionCard.category.textContent = q.category;
       questionCard.difficulty.textContent = gameState.selectedDifficulty.toUpperCase();
@@ -1502,15 +1418,13 @@
     }
 
     function handleAnswerChoice(isCorrect, buttonEl, questionData) {
-      if (gameState.isAnsweringLocked || gameState.timeRemaining <= 0) return;
+      if (gameState.isAnsweringLocked) return;
       gameState.isAnsweringLocked = true;
-
-      if (gameState.questionTimerInterval) {
-        clearInterval(gameState.questionTimerInterval);
-      }
 
       gameState.totalAnswered++;
       const allChoiceButtons = questionCard.choices.querySelectorAll('.choice-btn');
+
+      const responseTimeSec = Math.max(0.5, (Date.now() - gameState.questionStartTime) / 1000);
 
       if (isCorrect) {
         sound.playCorrect();
@@ -1529,14 +1443,9 @@
           sound.playComboBonus();
         }
 
-        const diffConfig = GAME_CONFIG.DIFFICULTIES[gameState.selectedDifficulty] || GAME_CONFIG.DIFFICULTIES.medium;
         const comboMultiplier = getComboMultiplier(gameState.comboStreak, gameState.selectedDifficulty);
         
-        const baseKwh = Number(diffConfig.baseKwh) || 100;
-        const comboBase = Number(diffConfig.comboRate) || 1.0;
-        
-        const speedFactor = Math.max(0.2, gameState.questionTimer / 10);
-        const earnedKwh = Math.round(baseKwh * speedFactor * (comboMultiplier / comboBase));
+        let earnedKwh = Math.max(10, Math.round(100 * comboMultiplier * Math.max(0.2, (10 - Math.min(9.5, responseTimeSec)) / 10)));
         
         gameState.kwh = (Number(gameState.kwh) || 0) + earnedKwh;
         gameState.score = (Number(gameState.score) || 0) + Math.round(earnedKwh * 1.5); 
@@ -1573,21 +1482,9 @@
       showExplanation(isCorrect, questionData);
       updateHud();
 
-      if (gameState.timeRemaining <= 0) {
-        clearInterval(gameState.timerInterval);
-        setTimeout(() => {
-          endGame(false);
-        }, isCorrect ? 1000 : 1800);
-        return;
-      }
-
       setTimeout(() => {
-        if (gameState.timeRemaining > 0) {
-          gameState.currentQuestionIndex++;
-          renderCurrentQuestion();
-        } else {
-          endGame(false);
-        }
+        gameState.currentQuestionIndex++;
+        renderCurrentQuestion();
       }, isCorrect ? 1000 : 1800);
     }
 
@@ -1624,8 +1521,6 @@
 
     function endGame(isVictory = false) {
       clearInterval(gameState.timerInterval);
-      if (gameState.questionTimerInterval) clearInterval(gameState.questionTimerInterval);
-      gameState.playDuration = Math.round((Date.now() - gameState.gameStartTime) / 1000);
 
       const nameInput = document.getElementById('player-name');
       const factoryInput = document.getElementById('factory-code');
@@ -1648,7 +1543,6 @@
         finalSummary.title.innerHTML = '<span class="text-amber-400">ภารกิจสำเร็จ!</span> ประเทศไทย 100% Clean Energy';
         finalSummary.subtitle.textContent = 'คุณสะสมพลังงานสะอาดครบ 100,000 kWh ได้สำเร็จ ยอดเยี่ยมมาก!';
       } else {
-        sound.playWrong();
         finalSummary.badge.innerHTML = '⏱️';
         finalSummary.badge.className = 'w-16 h-16 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-3xl mb-4';
         finalSummary.title.textContent = "หมดเวลา! (Time's Up)";
@@ -1672,40 +1566,29 @@
     }
 
     const MOCK_LEADERBOARD_INITIAL = [
-      { name: 'กรีนเอเนอร์จี้99', factory: 'SCG', difficulty: 'hard', score: 28500, kwh: 15250, playDuration: 42 },
-      { name: 'ช่างไฟโซลาร์รูฟ', factory: 'PTT', difficulty: 'hard', score: 26400, kwh: 14800, playDuration: 45 },
-      { name: 'ต้นไม้ฟอกอากาศ', factory: 'CPF', difficulty: 'hard', score: 24200, kwh: 13500, playDuration: 48 },
-      { name: 'กัลฟ์พาวเวอร์โปร', factory: 'GULF', difficulty: 'hard', score: 23100, kwh: 12900, playDuration: 50 },
-      { name: 'วิศวกรหมุนเวียน', factory: 'BGRIM', difficulty: 'hard', score: 21800, kwh: 12200, playDuration: 52 },
-      { name: 'น้องตะวันยิ้มแฉ่ง', factory: 'GC', difficulty: 'medium', score: 19400, kwh: 11600, playDuration: 55 },
-      { name: 'CleanTech_BKK', factory: 'WHA', difficulty: 'medium', score: 18500, kwh: 10700, playDuration: 58 },
-      { name: 'เซฟพลังงานไทย', factory: 'EGAT', difficulty: 'medium', score: 17200, kwh: 9900, playDuration: 60 },
-      { name: 'บ้านโซลาร์เซลล์', factory: 'GPSC', difficulty: 'medium', score: 16400, kwh: 9400, playDuration: 62 },
-      { name: 'สมาร์ทกริดฮีโร่', factory: 'BANPU', difficulty: 'medium', score: 15800, kwh: 9100, playDuration: 65 },
-      { name: 'สายลมแสงแดด', factory: 'IRPC', difficulty: 'medium', score: 14900, kwh: 8600, playDuration: 68 },
-      { name: 'อีโค่แฟคทอรี่', factory: 'IVL', difficulty: 'medium', score: 14100, kwh: 8200, playDuration: 70 },
-      { name: 'นวัตกรรมสีเขียว', factory: 'TU', difficulty: 'easy', score: 13500, kwh: 7900, playDuration: 72 },
-      { name: 'กรีนสโตร์24ชม', factory: 'CPALL', difficulty: 'easy', score: 12800, kwh: 7500, playDuration: 75 },
-      { name: 'โซลาร์ฮอสพิทอล', factory: 'BDMS', difficulty: 'easy', score: 12200, kwh: 7100, playDuration: 78 },
-      { name: 'ปูนรักษ์โลก', factory: 'SCC', difficulty: 'easy', score: 11600, kwh: 6800, playDuration: 80 },
-      { name: 'พลังงานสะอาด99', factory: 'BJC', difficulty: 'easy', score: 10900, kwh: 6400, playDuration: 82 },
-      { name: 'โรงกลั่นสีเขียว', factory: 'TOP', difficulty: 'easy', score: 10300, kwh: 6100, playDuration: 85 },
-      { name: 'อิเล็กทรอนิกส์กรีน', factory: 'DELTA', difficulty: 'easy', score: 9800, kwh: 5800, playDuration: 88 },
-      { name: 'โรงแรมอีโค่ทัวร์', factory: 'MINT', difficulty: 'easy', score: 9200, kwh: 5500, playDuration: 90 }
+      { name: 'กรีนเอเนอร์จี้99', factory: 'SCG', difficulty: 'hard', score: 28500, kwh: 15250, duration: 45 },
+      { name: 'ช่างไฟโซลาร์รูฟ', factory: 'PTT', difficulty: 'hard', score: 26400, kwh: 14800, duration: 48 },
+      { name: 'ต้นไม้ฟอกอากาศ', factory: 'CPF', difficulty: 'hard', score: 24200, kwh: 13500, duration: 50 },
+      { name: 'กัลฟ์พาวเวอร์โปร', factory: 'GULF', difficulty: 'hard', score: 23100, kwh: 12900, duration: 42 },
+      { name: 'วิศวกรหมุนเวียน', factory: 'BGRIM', difficulty: 'hard', score: 21800, kwh: 12200, duration: 55 },
+      { name: 'น้องตะวันยิ้มแฉ่ง', factory: 'GC', difficulty: 'medium', score: 19400, kwh: 11600, duration: 40 },
+      { name: 'CleanTech_BKK', factory: 'WHA', difficulty: 'medium', score: 18500, kwh: 10700, duration: 44 },
+      { name: 'เซฟพลังงานไทย', factory: 'EGAT', difficulty: 'medium', score: 17200, kwh: 9900, duration: 46 },
+      { name: 'บ้านโซลาร์เซลล์', factory: 'GPSC', difficulty: 'medium', score: 16400, kwh: 9400, duration: 49 },
+      { name: 'สมาร์ทกริดฮีโร่', factory: 'BANPU', difficulty: 'medium', score: 15800, kwh: 9100, duration: 51 },
+      { name: 'สายลมแสงแดด', factory: 'IRPC', difficulty: 'medium', score: 14900, kwh: 8600, duration: 52 },
+      { name: 'อีโค่แฟคทอรี่', factory: 'IVL', difficulty: 'medium', score: 14100, kwh: 8200, duration: 54 },
+      { name: 'นวัตกรรมสีเขียว', factory: 'TU', difficulty: 'easy', score: 13500, kwh: 7900, duration: 38 },
+      { name: 'กรีนสโตร์24ชม', factory: 'CPALL', difficulty: 'easy', score: 12800, kwh: 7500, duration: 41 },
+      { name: 'โซลาร์ฮอสพิทอล', factory: 'BDMS', difficulty: 'easy', score: 12200, kwh: 7100, duration: 43 },
+      { name: 'ปูนรักษ์โลก', factory: 'SCC', difficulty: 'easy', score: 11600, kwh: 6800, duration: 45 },
+      { name: 'พลังงานสะอาด99', factory: 'BJC', difficulty: 'easy', score: 10900, kwh: 6400, duration: 47 },
+      { name: 'โรงกลั่นสีเขียว', factory: 'TOP', difficulty: 'easy', score: 10300, kwh: 6100, duration: 50 },
+      { name: 'อิเล็กทรอนิกส์กรีน', factory: 'DELTA', difficulty: 'easy', score: 9800, kwh: 5800, duration: 53 },
+      { name: 'โรงแรมอีโค่ทัวร์', factory: 'MINT', difficulty: 'easy', score: 9200, kwh: 5500, duration: 56 }
     ];
 
     let memoryLeaderboard = [...MOCK_LEADERBOARD_INITIAL];
-
-    function sortLeaderboardArray(arr) {
-      return arr.sort((a, b) => {
-        if (b.score !== a.score) {
-          return b.score - a.score;
-        }
-        const durA = Number(a.playDuration) || 99999;
-        const durB = Number(b.playDuration) || 99999;
-        return durA - durB;
-      });
-    }
 
     async function saveScoreData(payload) {
       const scriptUrl = gameState.appsScriptUrl ? gameState.appsScriptUrl.trim() : '';
@@ -1738,18 +1621,15 @@
         (item.factory || '').trim().toLowerCase() === cleanFactory
       );
       if (existingIdx !== -1) {
-        const existing = memoryLeaderboard[existingIdx];
-        const isBetterScore = payload.score > existing.score;
-        const isSameScoreFaster = payload.score === existing.score && payload.playDuration < (existing.playDuration || 99999);
-        
-        if (isBetterScore || isSameScoreFaster) {
+        if (payload.score > memoryLeaderboard[existingIdx].score || 
+           (payload.score === memoryLeaderboard[existingIdx].score && payload.duration < (memoryLeaderboard[existingIdx].duration || 999))) {
           memoryLeaderboard[existingIdx] = {
             name: payload.name,
             factory: payload.factory,
             difficulty: payload.difficulty,
             score: payload.score,
             kwh: payload.kwh,
-            playDuration: payload.playDuration
+            duration: payload.duration
           };
         }
       } else {
@@ -1759,10 +1639,17 @@
           difficulty: payload.difficulty,
           score: payload.score,
           kwh: payload.kwh,
-          playDuration: payload.playDuration
+          duration: payload.duration
         });
       }
-      sortLeaderboardArray(memoryLeaderboard);
+      sortLeaderboard(memoryLeaderboard);
+    }
+
+    function sortLeaderboard(list) {
+      list.sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return (a.duration || 999) - (b.duration || 999);
+      });
     }
 
     async function fetchLeaderboard() {
@@ -1773,6 +1660,7 @@
           const res = await fetch(scriptUrl);
           const data = await res.json();
           if (data && data.leaderboard) {
+            sortLeaderboard(data.leaderboard);
             renderLeaderboardTable(data.leaderboard);
             leaderboardEl.status.textContent = 'เชื่อมต่อ: Google Sheets Web App (ออนไลน์ ✅)';
             return;
@@ -1782,20 +1670,18 @@
         }
       }
       leaderboardEl.status.textContent = 'เชื่อมต่อ: จำลองในเบราว์เซอร์ (Mock Storage)';
-      sortLeaderboardArray(memoryLeaderboard);
+      sortLeaderboard(memoryLeaderboard);
       renderLeaderboardTable(memoryLeaderboard.slice(0, 20));
     }
 
     function renderLeaderboardTable(records) {
       leaderboardEl.body.innerHTML = '';
       if (!records || records.length === 0) {
-        leaderboardEl.body.innerHTML = '<tr><td colspan="6" class="text-center py-6 text-slate-500 font-sans">ยังไม่มีข้อมูลอันดับคะแนน</td></tr>';
+        leaderboardEl.body.innerHTML = '<tr><td colspan="5" class="text-center py-6 text-slate-500 font-sans">ยังไม่มีข้อมูลอันดับคะแนน</td></tr>';
         return;
       }
 
-      const top20Records = records.slice(0, 20);
-
-      top20Records.forEach((item, index) => {
+      records.forEach((item, index) => {
         const row = document.createElement('tr');
         row.className = index < 3 ? 'bg-amber-500/5 hover:bg-amber-500/10 transition-colors' : 'hover:bg-slate-900/40 transition-colors';
         
@@ -1810,8 +1696,6 @@
           ? '<span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 uppercase">Med</span>'
           : '<span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 uppercase">Easy</span>';
 
-        const durationText = item.playDuration ? `${item.playDuration}s` : '-';
-
         row.innerHTML = `
           <td class="py-3 px-3 font-bold ${index === 0 ? 'text-amber-400' : 'text-slate-400'}">${rankBadge}</td>
           <td class="py-3 px-3 font-sans font-medium text-white">
@@ -1821,7 +1705,6 @@
             </div>
           </td>
           <td class="py-3 px-3">${diffBadge}</td>
-          <td class="py-3 px-3 text-right text-slate-400">${durationText}</td>
           <td class="py-3 px-3 text-right text-emerald-400">${Number(item.kwh || 0).toLocaleString()} <span class="text-[10px] text-slate-500">kWh</span></td>
           <td class="py-3 px-3 text-right font-bold text-amber-400">${Number(item.score || 0).toLocaleString()}</td>
         `;
@@ -1835,7 +1718,7 @@
       return div.innerHTML;
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
       const unlockAudio = () => {
         sound.init();
         document.removeEventListener('touchstart', unlockAudio);
@@ -1844,23 +1727,23 @@
       document.addEventListener('touchstart', unlockAudio, { passive: true });
       document.addEventListener('click', unlockAudio, { passive: true });
 
+      const statusEl = document.getElementById('q-source-status');
+      const countText = document.getElementById('active-question-count-text');
+
+      if (statusEl) {
+        statusEl.textContent = 'กำลังโหลดคลังคำถามหลายไฟล์...';
+      }
+
+      await questionManager.init();
+
       function updateQuestionBankUI() {
-        const statusEl = document.getElementById('q-source-status');
-        const countText = document.getElementById('active-question-count-text');
-        const totalDisplay = document.getElementById('bank-total-display');
         const count = questionManager.getCount();
-
-        if (totalDisplay) {
-          totalDisplay.textContent = `${count.toLocaleString()}+`;
-        }
-
         if (statusEl) {
-          statusEl.textContent = `Batch Question Bank (${count.toLocaleString()} ข้อ) ✅`;
+          statusEl.textContent = `พร้อมใช้งาน ${count.toLocaleString()} ข้อ ✅`;
           statusEl.className = 'text-[11px] font-bold text-emerald-400';
         }
-
         if (countText) {
-          countText.innerHTML = `จำนวนคำถามปัจจุบัน: <strong class="text-white font-mono">${count.toLocaleString()}</strong> ข้อ (แหล่งที่มา: ${questionManager.externalSourceUrl})`;
+          countText.innerHTML = `จำนวนคำถามปัจจุบัน: <strong class="text-white font-mono">${count.toLocaleString()}</strong> ข้อ (แหล่งที่มา: Combined Multi-File Dataset)`;
         }
       }
 
@@ -1901,59 +1784,6 @@
         });
       }
 
-      const uploadFileBtn = document.getElementById('upload-question-file-btn');
-      const uploadFileInput = document.getElementById('upload-question-file-input');
-      const fileUploadStatus = document.getElementById('file-upload-status');
-
-      if (uploadFileBtn && uploadFileInput) {
-        uploadFileBtn.addEventListener('click', () => {
-          uploadFileInput.click();
-        });
-
-        uploadFileInput.addEventListener('change', (event) => {
-          const file = event.target.files && event.target.files[0];
-          if (!file) return;
-
-          fileUploadStatus.textContent = `กำลังอ่านไฟล์ ${file.name}...`;
-          fileUploadStatus.className = 'text-[11px] text-amber-400 font-mono animate-pulse';
-
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            try {
-              const parsed = JSON.parse(e.target.result);
-              let items = Array.isArray(parsed) ? parsed : (parsed.questions || parsed.answeredQuestions || []);
-              const loadedCount = questionManager.loadFromJsonArray(items, file.name);
-              
-              fileUploadStatus.textContent = `✓ นำเข้าสำเร็จ ${loadedCount.toLocaleString()} ข้อ!`;
-              fileUploadStatus.className = 'text-[11px] text-emerald-400 font-bold font-mono';
-              updateQuestionBankUI();
-            } catch (err) {
-              fileUploadStatus.textContent = `✕ ไฟล์ผิดพลาด: ${err.message}`;
-              fileUploadStatus.className = 'text-[11px] text-rose-400 font-mono font-bold';
-            }
-          };
-          reader.readAsText(file);
-        });
-      }
-
-      const resetQuestionsBtn = document.getElementById('reset-questions-default-btn');
-      if (resetQuestionsBtn) {
-        resetQuestionsBtn.addEventListener('click', async () => {
-          const fetchedBatch = await loadAllQuestions();
-          if (fetchedBatch && fetchedBatch.length > 0) {
-            questionManager.loadFromJsonArray(fetchedBatch, 'Multi-File Batch (Reloaded)');
-          } else {
-            questionManager.resetToDefault();
-          }
-          const count = questionManager.getCount();
-          if (fileUploadStatus) {
-            fileUploadStatus.textContent = `รีเซ็ตกลับเป็นชุดรวม ${count} ข้อแล้ว`;
-            fileUploadStatus.className = 'text-[11px] text-amber-300 font-mono';
-          }
-          updateQuestionBankUI();
-        });
-      }
-
       document.querySelectorAll('.difficulty-card').forEach(btn => {
         btn.addEventListener('click', () => {
           document.querySelectorAll('.difficulty-card').forEach(b => {
@@ -1966,7 +1796,7 @@
         });
       });
 
-      document.getElementById('start-game-btn').addEventListener('click', initializeGame);
+      document.getElementById('start-game-btn').addEventListener('click', startGame);
 
       document.getElementById('restart-game-btn').addEventListener('click', () => {
         switchView('start');
@@ -2076,6 +1906,8 @@
           submitBtn.disabled = true;
           submitBtnText.textContent = 'กำลังบันทึกลงชีต...';
 
+          const playDurationSec = Math.round((Date.now() - gameState.gameStartTime) / 1000);
+
           const payload = {
             playerId: 'P-' + Math.random().toString(36).substr(2, 9).toUpperCase(),
             name: playerName,
@@ -2087,11 +1919,11 @@
             wrongCount: gameState.wrongCount,
             accuracy: gameState.totalAnswered > 0 ? Math.round((gameState.correctCount / gameState.totalAnswered) * 100) : 0,
             maxCombo: gameState.maxCombo,
-            playDuration: gameState.playDuration
+            playDuration: playDurationSec
           };
 
           try {
-            const res = await saveScoreData(payload);
+            const res = await saveScoreData({ ...payload, duration: playDurationSec });
             submitFeedback.className = 'mt-3 p-3 rounded-xl text-xs flex items-center gap-2 bg-emerald-950/80 text-emerald-300 border border-emerald-500/50';
             
             if (res.mode === 'google_sheets') {
