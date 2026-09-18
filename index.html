@@ -162,7 +162,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
-        <span class="hidden sm:inline">ตั้งค่า Google Sheet</span>
+        <span class="hidden sm:inline">ตั้งค่าเกม</span>
       </button>
     </div>
   </header>
@@ -490,7 +490,7 @@
       <div class="w-full max-w-lg glass-card rounded-2xl p-5 border border-slate-800 shadow-2xl mb-6 text-left">
         <h4 class="text-base font-bold text-white mb-1 flex items-center gap-2">
           <span>บันทึกคะแนนสู่ Leaderboard</span>
-          <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono">Google Sheets</span>
+          <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono">คะแนนออนไลน์</span>
         </h4>
         <p class="text-xs text-slate-400 mb-4">
           กรอกชื่อหรือชื่อเล่นเพื่อบันทึกสถิติของคุณเข้าสู่ตารางอันดับผู้นำพลังงานสะอาด
@@ -587,8 +587,8 @@
         </div>
 
         <div id="leaderboard-source-note" class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-500 flex items-center justify-between">
-          <span id="leaderboard-mode-status">เชื่อมต่อ: ระบบจำลองในเบราว์เซอร์ (Mock Storage)</span>
-          <span>นับเฉพาะคะแนนสูงสุดต่อชื่อผู้เล่น</span>
+          <span id="leaderboard-mode-status">กำลังเชื่อมต่อตารางคะแนนกลาง</span>
+          <span>คะแนนสูงสุดต่อชื่อผู้เล่นและโรงงาน</span>
         </div>
 
         <div class="mt-6 flex justify-center">
@@ -625,7 +625,7 @@
       </div>
 
       <p class="text-xs text-slate-300 mb-4">
-        กรุณากรอกรหัสผ่านเพื่อเข้าสู่ระบบแก้ไขการตั้งค่าและการเชื่อมต่อ Google Sheets
+        กรุณากรอกรหัสผ่านเพื่อเข้าสู่ระบบแก้ไขการตั้งค่าเกม
       </p>
 
       <form id="admin-auth-form" class="space-y-3">
@@ -671,7 +671,7 @@
       <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
         <div class="flex items-center gap-2">
           <span class="text-xl">📊</span>
-          <h3 class="text-base font-bold text-white">ตั้งค่า Google Sheets + Apps Script</h3>
+          <h3 class="text-base font-bold text-white">ตั้งค่าเกม</h3>
         </div>
         <button id="close-config-modal-btn" class="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -682,25 +682,8 @@
 
       <div class="space-y-4 text-xs text-slate-300">
         <p>
-          คุณสามารถนำ Google Apps Script Web App URL มาใส่ช่องด้านล่าง เพื่อบันทึกคะแนนจริงลง Google Sheets และดึง Leaderboard แบบเรียลไทม์ได้ทันทีครับ
+          ตารางอันดับใช้บริการคะแนนกลาง โดยผู้ดูแลกำหนด Web App URL หนึ่งค่าในไฟล์เกมก่อนเผยแพร่
         </p>
-
-        <div>
-          <label class="block font-semibold text-slate-200 mb-1">Apps Script Web App URL (exec):</label>
-          <input 
-            type="url" 
-            id="apps-script-url-input" 
-            placeholder="https://script.google.com/macros/s/AKfycbx.../exec" 
-            class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-600 focus:outline-none focus:border-amber-400 font-mono text-xs"
-          >
-          <p class="text-[11px] text-slate-500 mt-1">หากเว้นว่างไว้ ระบบจะใช้ Mock Local Storage เพื่อให้เล่นเกมได้สมบูรณ์</p>
-        </div>
-
-        <div class="flex justify-end gap-2 pt-2">
-          <button id="save-config-btn" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs">
-            บันทึกการตั้งค่า
-          </button>
-        </div>
 
         <div class="mt-4 pt-4 border-t border-slate-800 text-xs">
           <div class="flex items-center justify-between mb-2">
@@ -1132,6 +1115,9 @@
 
     const sound = new SoundEngine();
 
+    // Replace this one value with the deployed Apps Script Web App /exec URL.
+    const APPS_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx3d4piqVquuK3ERWAf6bExNzOxZbSw-w19bB5vc1_jhkcy-k5FKXXKXQj7kTwsOjzKYA/exec';
+
     const GAME_CONFIG = {
       TIME_BONUS: 4,     
       TIME_PENALTY: 10,  
@@ -1158,8 +1144,9 @@
       currentQuestionIndex: 0,
       isAnsweringLocked: false,
       gameStartTime: 0,
+      gameEndTime: 0,
+      pendingAttemptId: '',
       questionStartTime: 0,
-      appsScriptUrl: '',
       adminPassword: 'solar@2569'
     };
 
@@ -1223,7 +1210,6 @@
     const cancelAdminAuthBtn = document.getElementById('cancel-admin-auth-btn');
 
     const configModal = document.getElementById('config-modal');
-    const appsScriptUrlInput = document.getElementById('apps-script-url-input');
 
     function switchView(viewName) {
       Object.keys(views).forEach(name => {
@@ -1259,6 +1245,8 @@
       gameState.totalAnswered = 0;
       gameState.isAnsweringLocked = false;
       gameState.gameStartTime = Date.now();
+      gameState.gameEndTime = 0;
+      gameState.pendingAttemptId = '';
 
       const nameField = document.getElementById('player-name');
       const factoryField = document.getElementById('factory-code');
@@ -1521,6 +1509,7 @@
 
     function endGame(isVictory = false) {
       clearInterval(gameState.timerInterval);
+      gameState.gameEndTime = Date.now();
 
       const nameInput = document.getElementById('player-name');
       const factoryInput = document.getElementById('factory-code');
@@ -1565,113 +1554,83 @@
       switchView('gameover');
     }
 
-    const MOCK_LEADERBOARD_INITIAL = [
-      { name: 'กรีนเอเนอร์จี้99', factory: 'SCG', difficulty: 'hard', score: 28500, kwh: 15250, duration: 45 },
-      { name: 'ช่างไฟโซลาร์รูฟ', factory: 'PTT', difficulty: 'hard', score: 26400, kwh: 14800, duration: 48 },
-      { name: 'ต้นไม้ฟอกอากาศ', factory: 'CPF', difficulty: 'hard', score: 24200, kwh: 13500, duration: 50 },
-      { name: 'กัลฟ์พาวเวอร์โปร', factory: 'GULF', difficulty: 'hard', score: 23100, kwh: 12900, duration: 42 },
-      { name: 'วิศวกรหมุนเวียน', factory: 'BGRIM', difficulty: 'hard', score: 21800, kwh: 12200, duration: 55 },
-      { name: 'น้องตะวันยิ้มแฉ่ง', factory: 'GC', difficulty: 'medium', score: 19400, kwh: 11600, duration: 40 },
-      { name: 'CleanTech_BKK', factory: 'WHA', difficulty: 'medium', score: 18500, kwh: 10700, duration: 44 },
-      { name: 'เซฟพลังงานไทย', factory: 'EGAT', difficulty: 'medium', score: 17200, kwh: 9900, duration: 46 },
-      { name: 'บ้านโซลาร์เซลล์', factory: 'GPSC', difficulty: 'medium', score: 16400, kwh: 9400, duration: 49 },
-      { name: 'สมาร์ทกริดฮีโร่', factory: 'BANPU', difficulty: 'medium', score: 15800, kwh: 9100, duration: 51 },
-      { name: 'สายลมแสงแดด', factory: 'IRPC', difficulty: 'medium', score: 14900, kwh: 8600, duration: 52 },
-      { name: 'อีโค่แฟคทอรี่', factory: 'IVL', difficulty: 'medium', score: 14100, kwh: 8200, duration: 54 },
-      { name: 'นวัตกรรมสีเขียว', factory: 'TU', difficulty: 'easy', score: 13500, kwh: 7900, duration: 38 },
-      { name: 'กรีนสโตร์24ชม', factory: 'CPALL', difficulty: 'easy', score: 12800, kwh: 7500, duration: 41 },
-      { name: 'โซลาร์ฮอสพิทอล', factory: 'BDMS', difficulty: 'easy', score: 12200, kwh: 7100, duration: 43 },
-      { name: 'ปูนรักษ์โลก', factory: 'SCC', difficulty: 'easy', score: 11600, kwh: 6800, duration: 45 },
-      { name: 'พลังงานสะอาด99', factory: 'BJC', difficulty: 'easy', score: 10900, kwh: 6400, duration: 47 },
-      { name: 'โรงกลั่นสีเขียว', factory: 'TOP', difficulty: 'easy', score: 10300, kwh: 6100, duration: 50 },
-      { name: 'อิเล็กทรอนิกส์กรีน', factory: 'DELTA', difficulty: 'easy', score: 9800, kwh: 5800, duration: 53 },
-      { name: 'โรงแรมอีโค่ทัวร์', factory: 'MINT', difficulty: 'easy', score: 9200, kwh: 5500, duration: 56 }
-    ];
-
-    let memoryLeaderboard = [...MOCK_LEADERBOARD_INITIAL];
-
-    async function saveScoreData(payload) {
-      const scriptUrl = gameState.appsScriptUrl ? gameState.appsScriptUrl.trim() : '';
-      
-      saveToMockMemory(payload);
-
-      if (scriptUrl && scriptUrl.startsWith('http')) {
-        try {
-          await fetch(scriptUrl, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-            body: JSON.stringify(payload)
-          });
-          return { success: true, mode: 'google_sheets' };
-        } catch (err) {
-          console.warn('Google Sheets transmission warning:', err);
-          return { success: true, mode: 'mock_fallback' };
-        }
-      } else {
-        return { success: true, mode: 'mock' };
+    function configuredScriptUrl() {
+      const url = APPS_SCRIPT_WEB_APP_URL.trim();
+      if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(url)) {
+        throw new Error('ยังไม่ได้ตั้งค่า Apps Script /exec URL ในไฟล์เกม');
       }
+      return url;
     }
 
-    function saveToMockMemory(payload) {
-      const cleanName = String(payload.name || '').trim().toLowerCase();
-      const cleanFactory = String(payload.factory || '').trim().toLowerCase();
-      const existingIdx = memoryLeaderboard.findIndex(item => 
-        item.name.trim().toLowerCase() === cleanName && 
-        (item.factory || '').trim().toLowerCase() === cleanFactory
-      );
-      if (existingIdx !== -1) {
-        if (payload.score > memoryLeaderboard[existingIdx].score || 
-           (payload.score === memoryLeaderboard[existingIdx].score && payload.duration < (memoryLeaderboard[existingIdx].duration || 999))) {
-          memoryLeaderboard[existingIdx] = {
-            name: payload.name,
-            factory: payload.factory,
-            difficulty: payload.difficulty,
-            score: payload.score,
-            kwh: payload.kwh,
-            duration: payload.duration
-          };
-        }
-      } else {
-        memoryLeaderboard.push({
-          name: payload.name,
-          factory: payload.factory,
-          difficulty: payload.difficulty,
-          score: payload.score,
-          kwh: payload.kwh,
-          duration: payload.duration
-        });
-      }
-      sortLeaderboard(memoryLeaderboard);
-    }
-
-    function sortLeaderboard(list) {
-      list.sort((a, b) => {
-        if (b.score !== a.score) return b.score - a.score;
-        return (a.duration || 999) - (b.duration || 999);
+    async function getLeaderboardData(attemptId = '') {
+      const url = new URL(configuredScriptUrl());
+      url.searchParams.set('_', String(Date.now()));
+      if (attemptId) url.searchParams.set('attemptId', attemptId);
+      // JSONP uses a normal GET script request; Apps Script cannot set browser CORS headers.
+      return new Promise((resolve, reject) => {
+        const callback = `solarCb_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+        const script = document.createElement('script');
+        let settled = false;
+        const cleanup = () => {
+          clearTimeout(timeout);
+          script.remove();
+          delete window[callback];
+        };
+        const fail = message => {
+          if (settled) return;
+          settled = true;
+          cleanup();
+          reject(new Error(message));
+        };
+        const timeout = setTimeout(() => fail('หมดเวลารอข้อมูลตารางคะแนน'), 12000);
+        window[callback] = data => {
+          if (settled) return;
+          settled = true;
+          cleanup();
+          if (data?.success === true && Array.isArray(data.leaderboard)) resolve(data);
+          else reject(new Error(data?.error || 'ข้อมูลจาก Apps Script ไม่ถูกต้อง'));
+        };
+        script.onerror = () => fail('โหลดข้อมูลตารางคะแนนไม่สำเร็จ');
+        url.searchParams.set('callback', callback);
+        script.src = url.toString();
+        document.head.appendChild(script);
       });
     }
 
-    async function fetchLeaderboard() {
-      const scriptUrl = gameState.appsScriptUrl || '';
-      if (scriptUrl) {
+    async function saveScoreData(payload) {
+      const url = configuredScriptUrl();
+      // Apps Script Web Apps do not expose CORS headers for a cross-origin POST.
+      // The opaque POST is only considered successful after GET confirms attemptId.
+      await fetch(url, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+      let lastError;
+      for (let attempt = 0; attempt < 5; attempt++) {
+        await new Promise(resolve => setTimeout(resolve, attempt === 0 ? 500 : 1000));
         try {
-          leaderboardEl.status.textContent = 'เชื่อมต่อ: Google Sheets Web App (กำลังโหลด...)';
-          const res = await fetch(scriptUrl);
-          const data = await res.json();
-          if (data && data.leaderboard) {
-            sortLeaderboard(data.leaderboard);
-            renderLeaderboardTable(data.leaderboard);
-            leaderboardEl.status.textContent = 'เชื่อมต่อ: Google Sheets Web App (ออนไลน์ ✅)';
-            return;
-          }
-        } catch (e) {
-          console.warn('Apps Script GET error, fallback to memory', e);
+          const data = await getLeaderboardData(payload.attemptId);
+          if (data.saved === true) return data;
+        } catch (error) {
+          lastError = error;
         }
       }
-      leaderboardEl.status.textContent = 'เชื่อมต่อ: จำลองในเบราว์เซอร์ (Mock Storage)';
-      sortLeaderboard(memoryLeaderboard);
-      renderLeaderboardTable(memoryLeaderboard.slice(0, 20));
+      throw new Error(lastError?.message || 'ยังยืนยันการบันทึกคะแนนจากบริการคะแนนกลางไม่ได้');
+    }
+
+    async function fetchLeaderboard() {
+      leaderboardEl.status.textContent = 'เชื่อมต่อ: ตารางคะแนนกลาง (กำลังโหลด...)';
+      try {
+        const data = await getLeaderboardData();
+        renderLeaderboardTable(data.leaderboard);
+        leaderboardEl.status.textContent = 'เชื่อมต่อ: ตารางคะแนนกลาง (ออนไลน์ ✅)';
+      } catch (error) {
+        console.error('Leaderboard GET failed:', error);
+        leaderboardEl.body.innerHTML = '<tr><td colspan="5" class="text-center py-6 text-rose-300 font-sans">โหลดตารางคะแนนไม่ได้ กรุณากดอัปเดตอีกครั้ง</td></tr>';
+        leaderboardEl.status.textContent = `เชื่อมต่อไม่ได้: ${error.message}`;
+      }
     }
 
     function renderLeaderboardTable(records) {
@@ -1879,17 +1838,6 @@
         });
       }
 
-      const saveConfigBtn = document.getElementById('save-config-btn');
-      if (saveConfigBtn) {
-        saveConfigBtn.addEventListener('click', () => {
-          if (appsScriptUrlInput) {
-            gameState.appsScriptUrl = appsScriptUrlInput.value.trim();
-          }
-          configModal.classList.add('hidden');
-          configModal.classList.remove('flex');
-        });
-      }
-
       const scoreForm = document.getElementById('score-submit-form');
       const submitBtn = document.getElementById('submit-score-btn');
       const submitBtnText = document.getElementById('submit-btn-text');
@@ -1904,11 +1852,12 @@
           if (!playerName) return;
 
           submitBtn.disabled = true;
-          submitBtnText.textContent = 'กำลังบันทึกลงชีต...';
+          submitBtnText.textContent = 'กำลังบันทึกคะแนน...';
 
-          const playDurationSec = Math.round((Date.now() - gameState.gameStartTime) / 1000);
+          const playDurationSec = Math.max(0, Math.round(((gameState.gameEndTime || Date.now()) - gameState.gameStartTime) / 1000));
 
           const payload = {
+            attemptId: gameState.pendingAttemptId || (gameState.pendingAttemptId = (crypto.randomUUID ? crypto.randomUUID() : `attempt-${Date.now()}-${Math.random().toString(36).slice(2)}`)),
             playerId: 'P-' + Math.random().toString(36).substr(2, 9).toUpperCase(),
             name: playerName,
             factory: factoryCode || '-',
@@ -1923,14 +1872,9 @@
           };
 
           try {
-            const res = await saveScoreData({ ...payload, duration: playDurationSec });
+            await saveScoreData({ ...payload, duration: playDurationSec });
             submitFeedback.className = 'mt-3 p-3 rounded-xl text-xs flex items-center gap-2 bg-emerald-950/80 text-emerald-300 border border-emerald-500/50';
-            
-            if (res.mode === 'google_sheets') {
-              submitFeedback.innerHTML = `<span>✓ บันทึกลง Google Sheets เรียบร้อย! [${escapeHtml(factoryCode || '-')}] ${escapeHtml(playerName)}</span>`;
-            } else {
-              submitFeedback.innerHTML = `<span>✓ บันทึกสำเร็จ! แสดงสถิติของคุณ [${escapeHtml(factoryCode || '-')}] ${escapeHtml(playerName)} บน Leaderboard แล้ว</span>`;
-            }
+            submitFeedback.innerHTML = `<span>✓ ยืนยันการบันทึกคะแนนกลางแล้ว! [${escapeHtml(factoryCode || '-')}] ${escapeHtml(playerName)}</span>`;
             submitFeedback.classList.remove('hidden');
 
             document.getElementById('player-name').value = '';
@@ -1944,7 +1888,7 @@
 
           } catch (err) {
             submitFeedback.className = 'mt-3 p-3 rounded-xl text-xs flex items-center gap-2 bg-rose-950/80 text-rose-300 border border-rose-500/50';
-            submitFeedback.innerHTML = '<span>✕ เกิดข้อผิดพลาดในการบันทึก</span>';
+            submitFeedback.textContent = `✕ ${err.message || 'เกิดข้อผิดพลาดในการบันทึก'} กรุณาลองอีกครั้ง`;
             submitFeedback.classList.remove('hidden');
           } finally {
             submitBtn.disabled = false;
